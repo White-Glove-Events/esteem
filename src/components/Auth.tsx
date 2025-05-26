@@ -30,8 +30,12 @@ export default function Auth({ onAuthSuccess }: AuthProps) {
         if (onAuthSuccess) onAuthSuccess(data.user)
       }
       alert('Check your email for the confirmation link!')
-    } catch (error: any) {
-      alert(error.message)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        alert(error.message)
+      } else {
+        alert('An unknown error occurred during sign up.')
+      }
     } finally {
       setLoading(false)
     }
@@ -47,8 +51,12 @@ export default function Auth({ onAuthSuccess }: AuthProps) {
       })
       if (error) throw error
       if (onAuthSuccess && data.user) onAuthSuccess(data.user)
-    } catch (error: any) {
-      alert(error.message)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        alert(error.message)
+      } else {
+        alert('An unknown error occurred during sign in.')
+      }
     } finally {
       setLoading(false)
     }
