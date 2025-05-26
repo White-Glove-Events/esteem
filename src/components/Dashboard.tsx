@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react'
 import { supabase } from '@/lib/supabase'
+import { User } from '@supabase/supabase-js'
 
 interface Team {
   id: string
@@ -25,7 +26,7 @@ interface UserProfile {
 }
 
 export default function Dashboard() {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
   const [teams, setTeams] = useState<Team[]>([])
   const [teamName, setTeamName] = useState('')

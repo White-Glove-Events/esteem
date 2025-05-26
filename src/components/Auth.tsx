@@ -2,9 +2,10 @@
 
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
+import { User } from '@supabase/supabase-js'
 
 interface AuthProps {
-  onAuthSuccess?: (user: any) => void
+  onAuthSuccess?: (user: User) => void
 }
 
 export default function Auth({ onAuthSuccess }: AuthProps) {

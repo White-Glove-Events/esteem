@@ -4,14 +4,26 @@ import { useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { supabase } from "@/lib/supabase"
 import Auth from "@/components/Auth"
+import { User } from '@supabase/supabase-js'
+
+interface Invite {
+  id: string
+  email: string
+  team_id: string
+  inviter_id: string
+  token: string
+  status: string
+  created_at: string
+  accepted_at: string | null
+}
 
 export default function AcceptInvitePage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const token = searchParams.get("token")
-  const [invite, setInvite] = useState<any>(null)
+  const [invite, setInvite] = useState<Invite | null>(null)
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [accepting, setAccepting] = useState(false)
   const [message, setMessage] = useState("")
 

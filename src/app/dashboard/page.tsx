@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 import Auth from '@/components/Auth'
 import Dashboard from '@/components/Dashboard'
 import { supabase } from '@/lib/supabase'
+import { User } from '@supabase/supabase-js'
 
 export default function DashboardApp() {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
