@@ -74,7 +74,7 @@ export default function Dashboard() {
           .select('team:teams(id, name)')
           .eq('user_id', userData.user.id)
         if (!error && teamMembers) {
-          setTeams(teamMembers.map((tm: { team: Team }) => tm.team))
+          setTeams(teamMembers.flatMap((tm: { team: Team[] }) => tm.team))
         }
       }
       setLoading(false)
