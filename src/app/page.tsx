@@ -1,24 +1,14 @@
-'use client'
+"use client"
 
-import { useEffect, useState } from 'react'
-import Auth from '@/components/Auth'
-import Dashboard from '@/components/Dashboard'
-import { supabase } from '@/lib/supabase'
-
-export default function Home() {
-  const [user, setUser] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const getUser = async () => {
-      const { data } = await supabase.auth.getUser()
-      setUser(data.user)
-      setLoading(false)
-    }
-    getUser()
-  }, [])
-
-  if (loading) return <div>Loading...</div>
-  if (user) return <Dashboard />
-  return <Auth onAuthSuccess={setUser} />
+export default function LandingPage() {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#161038]">
+      <img src="/circles-logo-cropped.png" alt="circles logo" className="max-h-80 w-auto mb-4" />
+      <h1 className="text-5xl font-bold text-white mb-4 tracking-wide lowercase">circles</h1>
+      <p className="text-xl text-gray-300 max-w-xl text-center mb-8">
+        <span className="font-semibold text-white">Problem:</span> Staying accountable and productive in teams is hard—goals get lost, feedback is vague, and progress is invisible.<br /><br />
+        <span className="font-semibold text-white">Solution:</span> Circles makes team accountability effortless. Set daily goals, track progress, and get clear, supportive feedback—so everyone grows, together.
+      </p>
+    </div>
+  )
 }
