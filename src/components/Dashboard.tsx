@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { supabase } from '@/lib/supabase'
 import { User } from '@supabase/supabase-js'
+import Image from 'next/image'
 
 interface Team {
   id: string
@@ -86,7 +87,6 @@ export default function Dashboard() {
     if (selectedTeam) {
       fetchMembers(selectedTeam.id)
     }
-    // eslint-disable-next-line
   }, [selectedTeam, refreshMembers])
 
   const fetchMembers = async (teamId: string) => {
@@ -176,7 +176,7 @@ export default function Dashboard() {
     setRefreshMembers((r) => !r)
   }
 
-  const isAdmin = (teamId: string) => {
+  const isAdmin = () => {
     const member = members.find((m) => m.user_id === user?.id)
     return member?.role === 'admin'
   }
@@ -189,7 +189,7 @@ export default function Dashboard() {
       {/* Side Nav */}
       <aside className="hidden md:flex flex-col w-56 bg-[#161038] text-white p-6 space-y-4 shadow-lg">
         <div className="flex items-center gap-4 mb-8">
-          <img src="/logo.png" alt="circles logo" className="w-20 h-20" />
+          <Image src="/logo.png" alt="circles logo" width={80} height={80} className="w-20 h-20" priority />
           <span className="text-3xl font-normal lowercase tracking-wide">circles</span>
         </div>
         <nav className="flex flex-col gap-4">
@@ -203,7 +203,7 @@ export default function Dashboard() {
         {/* Top Nav */}
         <header className="flex items-center justify-between px-6 py-4 bg-transparent shadow-none">
           <div className="md:hidden flex items-center gap-2 text-xl font-bold text-white lowercase tracking-wide">
-            <img src="/logo.png" alt="circles logo" className="w-7 h-7" />
+            <Image src="/logo.png" alt="circles logo" width={28} height={28} className="w-7 h-7" priority />
             circles
           </div>
           <div className="flex-1" />
@@ -287,7 +287,7 @@ export default function Dashboard() {
                       <div className="flex justify-between items-center">
                         <span>{displayName}</span>
                         <span className="text-xs px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 ml-2">{member.role}</span>
-                        {isAdmin(selectedTeam.id) && member.user_id !== userProfile?.id && (
+                        {isAdmin() && member.user_id !== userProfile?.id && (
                           <>
                             <select
                               value={member.role}
@@ -311,7 +311,7 @@ export default function Dashboard() {
                   )
                 })}
               </ul>
-              {isAdmin(selectedTeam.id) && (
+              {isAdmin() && (
                 <form onSubmit={handleInvite} className="flex gap-2 mb-2">
                   <input
                     type="email"

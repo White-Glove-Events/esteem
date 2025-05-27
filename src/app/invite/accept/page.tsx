@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { supabase } from "@/lib/supabase"
 import Auth from "@/components/Auth"
@@ -17,7 +17,7 @@ interface Invite {
   accepted_at: string | null
 }
 
-export default function AcceptInvitePage() {
+function AcceptInviteContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const token = searchParams.get("token")
@@ -99,5 +99,13 @@ export default function AcceptInvitePage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function AcceptInvitePage() {
+  return (
+    <Suspense fallback={<div className="text-white p-8">Loading...</div>}>
+      <AcceptInviteContent />
+    </Suspense>
   )
 } 
